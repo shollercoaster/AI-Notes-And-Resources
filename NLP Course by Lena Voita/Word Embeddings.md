@@ -1,6 +1,5 @@
-[[2025-07-28]], [[2025-07-29]]
 - Models need representations in the form of vectors of features, to be able to read text.
-- How should the LM think? ==Words which frequently appear in **similar contexts** have **similar meaning**.==
+- How should the LM think? Words which frequently appear in **similar contexts** have **similar meaning**.
 
 ## How are these word vectors created?
 - Vocabulary - acts as a lookup table. Special embedding attached to each word, check the lookup table. Ignore unknown words or give them an UNK token.
@@ -23,7 +22,7 @@
 - Matrix elements (w, c) = number of times w appears in context c
 
 #### Positive Pointwise Mutual Information
-- same context 
+- same context
 - ![alt text](https://github.com/shollercoaster/AI-Notes-And-Resources/blob/main/images/ppmi-formula.png "PPMI Formula")
 
 
@@ -45,13 +44,13 @@
 - All probabilities need to be multiplied (since they are independent)
 - Word2Vec predicts context words, given the central word w<sub>t</sub>:
 
-$$ \color{#88bd33}{\mbox{Likelihood}} \color{white}= L(\theta)= \prod\limits_{t=1}^T\prod\limits_{-m\le j \le m, j\neq 0}P(\color{#888}{w_{t+j}}|\color{#88bd33}{w_t}\color{white}, \theta), $$
+$\color{#88bd33}{\mbox{Likelihood}} \color{white}= L(\theta)= \prod\limits_{t=1}^T\prod\limits_{-m\le j \le m, j\neq 0}P(\color{#888}{w_{t+j}}|\color{#88bd33}{w_t}\color{white}, \theta), $
 
 - ![alt text](https://github.com/shollercoaster/AI-Notes-And-Resources/blob/main/images/word2vec-formula.png "Word2Vec Formula")
 
 Here $\theta$ refers to all variables being optimized. The loss function $J(\theta)$ is the average negative log likelihood:
 
-$$ \color{#88bd33}{\mbox{Loss}} \color{white}= J(\theta)= \frac{-1}{T} logL(\theta) = \frac{-1}{T}\sum\limits_{t=1}^T\sum\limits_{-m \le j \le m, j\neq 0} log P(\color{#888}{w_{t+j}}|\color{#88bd33}{w_t}\color{white}, \theta), $$
+$\color{#88bd33}{\mbox{Loss}} \color{white}= J(\theta)= \frac{-1}{T} logL(\theta) = \frac{-1}{T}\sum\limits_{t=1}^T\sum\limits_{-m \le j \le m, j\neq 0} log P(\color{#888}{w_{t+j}}|\color{#88bd33}{w_t}\color{white}, \theta),$
 
 The first $\sum$ denotes going over all text, second $\sum$ donates sliding window, log part meaning computing probability of allcontext words given central.
 
@@ -67,11 +66,11 @@ Found in a lot of places in NLP
 - soft because all probabilities will be non-zero.
 - Max because the higher $x_i$ will have a higher probability $p_i$.
 
-$$ softmax(x_i) = \frac{exp(x_i)}{\sum\limits_{j=i}^N exp(x_j)} $$
+$softmax(x_i) = \frac{exp(x_i)}{\sum\limits_{j=i}^N exp(x_j)}$
 
 So applying this, the $p(o|c)$ becomes:
 
-$$ p(o|c) = \frac{exp(x_o^Tu_c)}{\sum\limits_{w\in{V}}exp(x_w^Tu_c)} $$
+$p(o|c) = \frac{exp(x_o^Tu_c)}{\sum\limits_{w\in{V}}exp(x_w^Tu_c)}$
 
 - Uses dot product to get cosine similarity
 - Denominator normalizes it over all words to get the prob distribution
@@ -79,17 +78,13 @@ $$ p(o|c) = \frac{exp(x_o^Tu_c)}{\sum\limits_{w\in{V}}exp(x_w^Tu_c)} $$
 #### Training: using Gradient Descent
 - Parameters $\theta$ to be learnt are the vectors $u_w$ and $x_w$, learnt using Gradient Descent:
 
-$$\theta^{new} = \theta^{old} - \alpha \nabla_{\theta} J(\theta).$$
+$\theta^{new} = \theta^{old} - \alpha \nabla_{\theta} J(\theta).$
 
 $\alpha$ is the learning rate.
 
 - Updates are made 1 at a time, considering only 1 (centre word, context word) pair at once.
 
-$$ \color{#88bd33}{\mbox{Loss}}\color{white} =J(\theta)= -\frac{1}{T}\log L(\theta)=
-    -\frac{1}{T}\sum\limits_{t=1}^T
-    \sum\limits_{-m\le j \le m, j\neq 0}\log P(\color{#888}{w_{t+j}}\color{black}|\color{#88bd33}{w_t}\color{white}, \theta)=
-    \frac{1}{T} \sum\limits_{t=1}^T
-    \sum\limits_{-m\le j \le m, j\neq 0} J_{t,j}(\theta). $$
+$\color{#88bd33}{\mbox{Loss}}\color{white} =J(\theta)= -\frac{1}{T}\log L(\theta)=-\frac{1}{T}\sum\limits_{t=1}^T\sum\limits_{-m\le j \le m, j\neq 0}\log P(\color{#888}{w_{t+j}}\color{black}|\color{#88bd33}{w_t}\color{white}, \theta)=\frac{1}{T} \sum\limits_{t=1}^T\sum\limits_{-m\le j \le m, j\neq 0} J_{t,j}(\theta).$
 
 So let $J_{t,j}(\theta)=-\log P(\color{#888}{w_{t+j}}\color{white}|\color{#88bd33}{w_t}\color{white}, \theta)$.
 
@@ -100,11 +95,7 @@ Consider the pair (cute, cat) with cat being the centre word.
 
 So the loss term $J_{t,j}(\theta)$ becomes:
 
-$$J_{t,j}(\theta)= -\log P(\color{#888}{cute}\color{black}|\color{#88bd33}{cat}\color{white}) =
-        -\log \frac{\exp\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}}{
-       \sum\limits_{w\in Voc}\exp{\color{#888}{x_w^T}\color{#88bd33}{u_{cat}} }} =
-    -\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}\color{white}
-        + \log \sum\limits_{w\in Voc}\exp{\color{#888}{x_w^T}\color{#88bd33}{u_{cat}}}\color{white}{.}$$
+$J_{t,j}(\theta)= -\log P(\color{#888}{cute}\color{black}|\color{#88bd33}{cat}\color{white}) = -\log \frac{\exp\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}}{\sum\limits_{w\in Voc}\exp{\color{#888}{x_w^T}\color{#88bd33}{u_{cat}} }} = -\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}\color{white}+ \log \sum\limits_{w\in Voc}\exp{\color{#888}{x_w^T}\color{#88bd33}{u_{cat}}}\color{white}{.}$
 
 Only the parameters $x_{cute}$, $x_{grey}$, $x_{playing}$, $x_{in}$ (the vocabulary context words) and $u_{cat}$ will be updated at this step. 
 
@@ -132,9 +123,7 @@ We minimize the cost function and so increase the cosine similarity between curr
 - Instead of V + 1, we are updating K + 1 vectors.
 - The new loss function becomes:
 
-$$ J_{t,j}(\theta)=
-    -\log\sigma(\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}\color{white}) -
-    \sum\limits_{w\in \{w_{i_1},\dots, w_{i_K}\}}\log\sigma({-\color{#888}{x_w^T}\color{#88bd33}{u_{cat}}}\color{white}), $$
+$J_{t,j}(\theta)=-\log\sigma(\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}\color{white}) -\sum\limits_{w\in \{w_{i_1},\dots, w_{i_K}\}}\log\sigma({-\color{#888}{x_w^T}\color{#88bd33}{u_{cat}}}\color{white}),$
 
 where $\sigma$ is the sigmoid function and updation is only for K negative samples. Sigmoid function:
 
@@ -142,12 +131,10 @@ $\sigma(x)=\frac{1}{1+e^{-x}}$
 
 Sigmoid of a negative function:
 
-$$ \sigma(-x)=\frac{1}{1+e^{x}} = \frac{(1 + e^{x}) - 1}{1 + e^{x}} = 1 - \frac{1}{1+e^{-x}} = 1 - \sigma{(x)} $$
+$\sigma(-x)=\frac{1}{1+e^{x}} = \frac{(1 + e^{x}) - 1}{1 + e^{x}} = 1 - \frac{1}{1+e^{-x}} = 1 - \sigma{(x)}$
 
 So the loss function can be written as 
-$$ J_{t,j}(\theta)=
-    -\log\sigma(\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}\color{white}) -
-    \sum\limits_{w\in \{w_{i_1},\dots, w_{i_K}\}}\log(1-\sigma({\color{#888}{x_w^T}\color{#88bd33}{u_{cat}}}\color{white})). $$
+$J_{t,j}(\theta)=-\log\sigma(\color{#888}{x_{cute}^T}\color{#88bd33}{u_{cat}}\color{white}) -\sum\limits_{w\in \{w_{i_1},\dots, w_{i_K}\}}\log(1-\sigma({\color{#888}{x_w^T}\color{#88bd33}{u_{cat}}}\color{white})).$
     
 Negative sampling is efficient because a word only has few "true" contexts. So randomly chosen words are likely to be negative only. Negative samples are randomly selected over the probability distribution.
 
@@ -164,7 +151,7 @@ Negative sampling is efficient because a word only has few "true" contexts. So r
 
 Same learnt params: context and central word vectors. Also has scalar bias for each.
 
-==Glove controls influence of rare and frequent words:==
+Glove controls influence of rare and frequent words:
 - rare events penalized (less weight)
 - Frequent events are not overweighted
 
