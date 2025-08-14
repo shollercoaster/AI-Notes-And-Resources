@@ -1,0 +1,6 @@
+- https://huggingface.co/learn/deep-rl-course/unit1/what-is-rl Huggingface Hands on RL
+- https://cs224r.stanford.edu/ Stanford Deep RL 2025
+- https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/ Oxford Intro to ML (has 2 basic RL lectures)
+- https://datamachines.xyz/2021/11/17/hands-on-reinforcement-learning-course-part-1/#s1 this basic hands on RL course
+- https://web.stanford.edu/class/cs234/index.html Stanford, more beginner friendly I guess and lecture slides inspired by David Silver, has some outdated [notes](https://github.com/tallamjr/stanford-cs234/blob/master/README.md) in the github also
+- https://github.com/yandexdataschool/Practical_RL?tab=readme-ov-file Lena Voita Yandex repo

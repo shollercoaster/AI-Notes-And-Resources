@@ -35,10 +35,12 @@
 #### Objective Function: Negative Log-Likelihood
 - All probabilities need to be multiplied (since they are independent)
 - Word2Vec predicts context words, given the central word w<sub>t</sub>:
+
 $$
 \color{#88bd33}{\mbox{Likelihood}} \color{white}= L(\theta)=
     \prod\limits_{t=1}^T\prod\limits_{-m\le j \le m, j\neq 0}P(\color{#888}{w_{t+j}}|\color{#88bd33}{w_t}\color{white}, \theta),
 $$
+
 - ![[word2vec-formula.png]]
 Here $\theta$ refers to all variables being optimized. The loss function $J(\theta)$ is the average negative log likelihood:
 $$
